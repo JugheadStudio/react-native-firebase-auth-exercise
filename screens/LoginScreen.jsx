@@ -1,13 +1,24 @@
 import { TextInput, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
+
+import {handleLogin} from '../services/authService'
 
 const LoginScreen = () => {
+
+  const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   //   TODO: Login Function
-  const login = () => {}
+  const login = () => {
+    handleLogin(email, password);
+  }
+
+  const goToRegister = () => {
+    navigation.navigate('Register');
+  }
 
   return (
     <SafeAreaView >
@@ -29,10 +40,13 @@ const LoginScreen = () => {
             />
 
         <TouchableOpacity style={styles.button} onPress={login}>
-            <Text style={styles.buttonText}>Login Button</Text>
+            <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         {/* TODO: Add Register Navigation */}
+        <TouchableOpacity style={styles.button} onPress={goToRegister}>
+            <Text style={styles.buttonText}>Go to Register</Text>
+        </TouchableOpacity>
 
       </View>  
       
@@ -50,13 +64,16 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderColor: 'black',
-        marginTop: 15
+        marginTop: 15,
+        borderRadius: 10,
+        paddingHorizontal: 15
     },
     button: {
         backgroundColor: "green",
         textAlign: 'center',
         padding: 10,
-        marginTop: 30
+        marginTop: 30,
+        borderRadius: 10,
     },
     buttonText: {
         textAlign: 'center',
